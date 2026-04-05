@@ -1,0 +1,104 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'theme.json'
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version from theme.json
+        id: get_version
+        run: |
+          VERSION=$(jq -r '.version' theme.json)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+          echo "Detected version: $VERSION"
+
+      - name: Check if tag already exists
+        id: check_tag
+        run: |
+          if git rev-parse "v${{ steps.get_version.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "Tag v${{ steps.get_version.outputs.version }} already exists"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "Tag v${{ steps.get_version.outputs.version }} does not exist"
+          fi
+
+      - name: Create iTheme folder structure and zip
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          # Create temporary directory
+          mkdir -p /tmp/release-build/iTheme
+          
+          # Copy all files except .git to iTheme folder
+          rsync -av --exclude='.git' --exclude='.github' ./ /tmp/release-build/iTheme/
+          
+          # Create zip file
+          cd /tmp/release-build
+          zip -r iTheme-v${{ steps.get_version.outputs.version }}.zip iTheme/
+          
+          # Move zip back to workspace
+          mv iTheme-v${{ steps.get_version.outputs.version }}.zip $GITHUB_WORKSPACE/
+
+      - name: Create Git tag
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "v${{ steps.get_version.outputs.version }}" -m "Release version ${{ steps.get_version.outputs.version }}"
+          git push origin "v${{ steps.get_version.outputs.version }}"
+
+      - name: Create GitHub Release
+        if: steps.check_tag.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.get_version.outputs.version }}
+          name: iTheme v${{ steps.get_version.outputs.version }}
+          body: |
+            ## iTheme v${{ steps.get_version.outputs.version }}
+            
+            ### Installation Instructions
+            
+            **Linux / macOS:**
+            1. Download `iTheme-v${{ steps.get_version.outputs.version }}.zip`
+            2. Extract the zip file
+            3. Move the `iTheme` folder to `~/.config/Cider/Themes/`
+            4. Restart Cider and select iTheme from the theme settings
+            
+            **Windows:**
+            1. Download `iTheme-v${{ steps.get_version.outputs.version }}.zip`
+            2. Extract the zip file
+            3. Move the `iTheme` folder to `%APPDATA%\Cider\Themes\`
+            4. Restart Cider and select iTheme from the theme settings
+            
+            ### What's Changed
+            - Apple Music Style Lyrics with smooth transitions
+            - Enhanced fullscreen experience
+            - Improved animations and visual effects
+          files: |
+            iTheme-v${{ steps.get_version.outputs.version }}.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Tag already exists
+        if: steps.check_tag.outputs.exists == 'true'
+        run: |
+          echo "::warning::Tag v${{ steps.get_version.outputs.version }} already exists. Skipping release creation."
+          echo "To create a new release, update the version in theme.json"

@@ -2,10 +2,34 @@
 
 <img src="https://img.shields.io/github/package-json/v/yazninja/iTheme?color=darkgreen&filename=theme.json&style=for-the-badge">
 
-Cider theme based from the Apple Music beta app in MacOS Ventura. 
+Cider theme based from the Apple Music beta app in MacOS Ventura with Apple Music Style lyrics. 
 Best used with `Mica(beta)` option in settings.
 Supports all layouts (Mojave/Mavericks)
 Supports both Light and Dark Mode
+
+## Features
+- 🎵 **Apple Music Style Lyrics**: Smooth lyrics transitions with fullscreen UI
+- 🎨 Inline drawer with beautiful lyric styling
+- ✨ Enhanced fullscreen experience
+- 🌓 Light and Dark mode support
+
+## Installation
+
+### Option 1: Download Release (Recommended)
+1. Go to [Releases](https://github.com/ciderapp/iTheme/releases/latest)
+2. Download the latest `iTheme-vX.X.X.zip` file
+3. Extract the zip file
+4. Move the extracted `iTheme` folder to your Cider themes directory:
+   - **Linux:** `~/.config/Cider/Themes/`
+   - **macOS:** `~/.config/Cider/Themes/` or `~/Library/Application Support/Cider/Themes/`
+   - **Windows:** `%APPDATA%\Cider\Themes\`
+5. Restart Cider
+6. Go to Settings → Visual → Theme and select **iTheme**
+
+### Option 2: Manual Installation
+1. Clone or download this repository
+2. Copy the entire folder to your Cider themes directory (paths above)
+3. Restart Cider and select iTheme from theme settings
 
 #### iTheme Ecosystem
 
