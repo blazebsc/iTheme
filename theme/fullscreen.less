@@ -243,26 +243,48 @@
         }
 
         .lyric-line {
-            font-size   : 4.25rem;
-            margin-right: 20px;
-            transition : all 0.75s var(--appleEase);
+            font-size      : 4.25rem;
+            margin-right   : 20px;
+            transition     : all 0.75s var(--appleEase);
+            text-shadow    : 0 4px 30px rgba(0, 0, 0, 0.4);
+            letter-spacing : 0.5px;
+            line-height    : 1.3;
+            
             .lyrics-translation {
-                filter: opacity(0.5);
+                display       : block;
+                margin-top    : 12px;
+                font-size     : 0.45em;
+                opacity       : 0.6;
+                letter-spacing: 1px;
+                filter        : blur(0.5px);
             }
 
             &:not(.active) {
-                transform: scale(0.75);
-                filter   : blur(1.5px) opacity(0.5);
+                transform    : scale(0.8);
+                filter       : blur(2px) opacity(0.4);
+                text-shadow  : none;
             }
 
             &.active {
                 transform: scale(1);
+                animation: lyricGlow 3s ease-in-out infinite;
+                
                 .verse {
-                    opacity:1 !important;
+                    opacity        : 1 !important;
+                    text-shadow    : 
+                        0 0 30px rgba(255, 255, 255, 0.4),
+                        0 0 60px rgba(255, 255, 255, 0.2),
+                        2px 2px 0 #000,
+                        -1px -1px 0 #000,
+                        1px -1px 0 #000,
+                        -1px 1px 0 #000,
+                        1px 1px 0 #000;
+                    animation: lyricPulse 2s ease-in-out infinite;
                 }
                 .verse-active {
                     transition         : all 0.35s var(--appleEase);
                     text-shadow        :
+                        0 0 20px rgba(255, 255, 255, 0.5),
                         3px 3px 0 #000,
                         -1px -1px 0 #000,
                         1px -1px 0 #000,
