@@ -1,5 +1,6 @@
 .fullscreen-view-container {
     .fullscreen-view {
+
         .fs-header {
             pointer-events: none;
         }
@@ -56,51 +57,38 @@
             .controls-parents {
                 margin-top: 0.75rem;
 
-                &:hover {
-                    :not(.song-name0):not(.song-artist) {
-                        opacity   : 1;
-                        transition: opacity 0.35s var(--appleEase);
-                    }
-                }
-
                 .song-name {
                     font-size    : 16px;
                     font-weight  : bold;
                     color        : var(--textColorLight);
                     margin-bottom: 2.5px;
+                    opacity      : 1 !important;
                 }
 
                 .song-artist {
                     font-size: 14px;
                     color    : var(--textColorLight);
-                    opacity  : 0.8;
+                    opacity  : 1 !important;
                 }
 
                 .song-progress {
-                    opacity   : 1;
+                    opacity   : 1 !important;
+                    visibility: visible !important;
                     transform : translateY(0);
-                    transition: none;
+                    transition: none !important;
                     position  : fixed;
                     bottom    : 8rem;
                     left      : 4rem;
                     right     : 4rem;
                     width     : calc(100% - 8rem);
+                    animation : none !important;
                     
-                    > * {
-                        opacity: 1 !important;
-                    }
-
-                    .song-duration {
-                        width        : calc(100% - 0.5rem);
-                        position     : absolute;
-                        margin-top   : 20px;
-                        margin-inline: 0.25rem;
-                        opacity      : 1;
-                    }
-
                     input {
                         height       : 0.5rem;
                         border-radius: 1rem;
+                        opacity      : 1 !important;
+                        visibility   : visible !important;
+                        animation    : none !important;
 
                         &::-webkit-slider-thumb {
                             border-radius: 3px;
@@ -112,18 +100,46 @@
                     }
                 }
 
+                .playback-info {
+                    .song-progress {
+                        .song-duration {
+                            position  : fixed;
+                            bottom    : 2rem;
+                            left      : 4rem;
+                            right     : 4rem;
+                            width     : calc(100% - 8rem);
+                            display   : flex !important;
+                            justify-content: space-between;
+                            opacity   : 1 !important;
+                            pointer-events: none;
+                            
+                            p {
+                                font-size   : 13px;
+                                font-weight : 500;
+                                color       : var(--textColorLight);
+                                opacity     : 0.9;
+                                text-shadow : 0 1px 3px rgba(0, 0, 0, 0.4);
+                            }
+                        }
+                    }
+                }
+
                 .volume>.input-container {
                     position  : fixed;
                     bottom    : 5rem;
                     right     : 4rem;
                     width     : 150px;
-                    opacity   : 1;
-                    transition: none;
+                    opacity   : 1 !important;
+                    visibility: visible !important;
+                    display   : flex !important;
+                    transition: none !important;
                 }
 
                 .control-buttons {
-                    opacity   : 1;
-                    transition: none;
+                    opacity   : 1 !important;
+                    visibility: visible !important;
+                    display   : flex !important;
+                    transition: none !important;
                     margin    : 0;
                     position  : fixed;
                     bottom    : 4rem;
