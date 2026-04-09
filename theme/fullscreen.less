@@ -61,11 +61,6 @@
                         opacity   : 1;
                         transition: opacity 0.35s var(--appleEase);
                     }
-
-                    .song-progress {
-                        transform : translateY(0);
-                        transition: transform 0.35s var(--appleEase) !important;
-                    }
                 }
 
                 .song-name {
@@ -90,13 +85,17 @@
                     left      : 4rem;
                     right     : 4rem;
                     width     : calc(100% - 8rem);
+                    
+                    > * {
+                        opacity: 1 !important;
+                    }
 
                     .song-duration {
                         width        : calc(100% - 0.5rem);
                         position     : absolute;
                         margin-top   : 20px;
                         margin-inline: 0.25rem;
-                        opacity      : 0.8;
+                        opacity      : 1;
                     }
 
                     input {
