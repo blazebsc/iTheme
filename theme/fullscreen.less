@@ -83,8 +83,8 @@
 
                 .song-progress {
                     opacity   : 1;
-                    transform : translateY(60px);
-                    transition: transform 0.35s 3s var(--appleEase);
+                    transform : translateY(0);
+                    transition: none;
                     position  : fixed;
                     bottom    : 8rem;
                     left      : 4rem;
@@ -114,18 +114,17 @@
                 }
 
                 .volume>.input-container {
-                    // display: none;
                     position  : fixed;
                     bottom    : 5rem;
                     right     : 4rem;
                     width     : 150px;
-                    opacity   : 0;
-                    transition: opacity 0.5s 2s var(--appleEase);
+                    opacity   : 1;
+                    transition: none;
                 }
 
                 .control-buttons {
-                    opacity   : 0;
-                    transition: opacity 0.5s 2s var(--appleEase);
+                    opacity   : 1;
+                    transition: none;
                     margin    : 0;
                     position  : fixed;
                     bottom    : 4rem;
